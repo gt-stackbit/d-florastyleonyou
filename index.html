@@ -1,0 +1,3354 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MAISON THEODORA — Création & Mode</title>
+
+    <meta name="description" content="MAISON THEODORA — Créations de mode, élégance et identité.">
+
+    <link rel="preload" as="image" href="images/photo-principale.jpg" fetchpriority="high">
+
+    <style>
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0b0b0b;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        body.locked {
+            overflow: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+
+        /* =========================================================
+           INTRO / ÉCRAN D'ACCUEIL
+        ========================================================= */
+
+        .intro-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    rgba(0, 0, 0, 0.72),
+                    rgba(0, 0, 0, 0.88)
+                ),
+                url("images/photo-principale.jpg") center/cover no-repeat;
+
+            transition:
+                opacity 0.9s ease,
+                visibility 0.9s ease;
+        }
+
+        .intro-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .intro-content {
+            text-align: center;
+            padding: 30px;
+            max-width: 850px;
+            animation: introAppear 1.5s ease forwards;
+        }
+
+        .intro-small {
+            font-size: 12px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            opacity: 0.75;
+        }
+
+        .intro-title {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(55px, 10vw, 130px);
+            font-weight: 400;
+            letter-spacing: 8px;
+            margin-bottom: 25px;
+        }
+
+        .intro-title span {
+            color: #d8b36a;
+        }
+
+        .intro-title strong {
+            color: #fff;
+            font-weight: 400;
+        }
+
+        .intro-subtitle {
+            font-size: 15px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 45px;
+            opacity: 0.8;
+        }
+
+        .intro-bio {
+            max-width: 720px;
+            margin: 0 auto 38px;
+            font-size: 14px;
+            line-height: 1.9;
+            letter-spacing: 0.3px;
+            color: rgba(255, 255, 255, 0.78);
+        }
+
+        #enterButton {
+            position: relative;
+            z-index: 100000;
+
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            background: transparent;
+            color: white;
+
+            padding: 17px 35px;
+
+            cursor: pointer;
+
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+
+            transition:
+                background 0.4s ease,
+                color 0.4s ease,
+                transform 0.3s ease;
+        }
+
+        #enterButton:hover {
+            background: white;
+            color: #000;
+            transform: translateY(-3px);
+        }
+
+        #enterButton:active {
+            transform: scale(0.97);
+        }
+
+
+        /* =========================================================
+           HEADER
+        ========================================================= */
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 25px 5%;
+
+            background: linear-gradient(
+                rgba(0, 0, 0, 0.7),
+                transparent
+            );
+        }
+
+        .logo {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 25px;
+            letter-spacing: 5px;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        nav a:hover {
+            opacity: 1;
+        }
+
+
+        /* =========================================================
+           BOUTON MUSIQUE
+        ========================================================= */
+
+        #musicButton {
+            position: fixed;
+            right: 25px;
+            bottom: 25px;
+
+            z-index: 3000;
+
+            width: 52px;
+            height: 52px;
+
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+
+            background: rgba(0, 0, 0, 0.65);
+            color: white;
+
+            cursor: pointer;
+
+            font-size: 18px;
+
+            backdrop-filter: blur(10px);
+
+            transition: transform 0.3s ease,
+                        background 0.3s ease;
+        }
+
+        #musicButton:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+            height: 100vh;
+            min-height: 700px;
+
+            position: relative;
+
+            display: flex;
+            align-items: flex-end;
+
+            overflow: hidden;
+        }
+
+        .hero-image {
+            position: absolute;
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    to top,
+                    rgba(0, 0, 0, 0.9),
+                    rgba(0, 0, 0, 0.05)
+                ),
+                url("images/photo-principale.jpg") center/cover no-repeat;
+
+            transform: scale(1.05);
+
+            transition: transform 0.3s ease;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+
+            padding: 8%;
+            max-width: 850px;
+        }
+
+        .hero-label {
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+
+        .hero h1 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(50px, 9vw, 115px);
+            font-weight: 400;
+            line-height: 0.95;
+            margin-bottom: 25px;
+        }
+
+        .hero p {
+            max-width: 600px;
+            font-size: 16px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+
+        /* =========================================================
+           SECTIONS
+        ========================================================= */
+
+        section {
+            padding: 120px 7%;
+        }
+
+        .section-label {
+            font-size: 10px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            opacity: 0.55;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(40px, 6vw, 80px);
+            font-weight: 400;
+            margin-bottom: 50px;
+        }
+
+
+        /* =========================================================
+           BIOGRAPHIE
+        ========================================================= */
+
+        .bio {
+            background: #111;
+        }
+
+        .bio-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+
+            align-items: center;
+        }
+
+        .bio-image {
+            width: 100%;
+            height: 650px;
+
+            object-fit: cover;
+            display: block;
+        }
+
+        .bio-text {
+            max-width: 600px;
+        }
+
+        .bio-text p {
+            font-size: 17px;
+            line-height: 2;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 25px;
+        }
+
+
+        /* =========================================================
+           CARROUSEL PHOTOS
+        ========================================================= */
+
+        .photos-section {
+            background: #080808;
+            overflow: hidden;
+        }
+
+        .photos-biography {
+            max-width: 900px;
+            margin: 0 auto 55px;
+        }
+
+        .photos-biography p {
+            font-size: 16px;
+            line-height: 1.9;
+            color: rgba(255, 255, 255, 0.72);
+            margin-bottom: 20px;
+        }
+
+        .photos-track-wrapper {
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .photos-track {
+            display: flex;
+            gap: 20px;
+            width: max-content;
+
+            animation: none !important;
+        }
+
+        /* ARRÊT TOTAL DU DÉFILEMENT AUTOMATIQUE */
+        .photos-track {
+            animation: none !important;
+            transition: transform 0.45s ease;
+        }
+
+        .photos-track:hover {
+            animation: none !important;
+        }
+
+        .photo-card {
+            width: 300px;
+            height: 420px;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .photo-card {
+            contain: layout paint;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+
+            transition: transform 0.7s ease;
+        }
+
+        .photo-card:hover img {
+            transform: scale(1.08);
+        }
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+
+        /* =========================================================
+           COLLECTION
+        ========================================================= */
+
+        .collection {
+            background: #0d0d0d;
+        }
+
+        .model {
+            --progress: 0;
+
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 70px;
+            align-items: center;
+            margin-bottom: 180px;
+
+            opacity: calc(0.12 + (var(--progress) * 0.88));
+            transform:
+                translateY(calc((1 - var(--progress)) * 90px))
+                scale(calc(0.96 + (var(--progress) * 0.04)));
+        }
+
+        .model:nth-child(even) {
+            grid-template-columns: 0.85fr 1.15fr;
+        }
+
+        .model:nth-child(even) .model-image {
+            order: 2;
+        }
+
+        .model:nth-child(even) .model-info {
+            order: 1;
+        }
+
+
+        /* =====================================================
+           4 FRAGMENTS — IMAGE ENTIÈRE SANS RECADRAGE
+        ===================================================== */
+
+        .model-image {
+            position: relative;
+            width: 100%;
+            height: auto;
+            overflow: visible;
+            isolation: isolate;
+            aspect-ratio: 2 / 3;
+        }
+
+        .model-fragment {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            overflow: hidden;
+            z-index: 2;
+
+            opacity: calc(0.18 + (var(--progress) * 0.82));
+
+            will-change: transform;
+            background: #0d0d0d;
+        }
+
+        .model-fragment img {
+            position: absolute;
+            display: block;
+
+            width: 200%;
+            height: 200%;
+            max-width: none;
+            max-height: none;
+
+            /*
+             * Les 4 fragments doivent rester parfaitement alignés
+             * avec l'image originale : aucune adaptation indépendante.
+             */
+            object-fit: fill;
+            object-position: center;
+
+            margin: 0;
+            padding: 0;
+
+            transform: none !important;
+            transition: none !important;
+        }
+
+        /* Haut gauche */
+        .fragment-1 {
+            left: 0;
+            top: 0;
+            transform:
+                translate(
+                    calc((1 - var(--progress)) * -180px),
+                    calc((1 - var(--progress)) * -140px)
+                )
+                rotate(calc((1 - var(--progress)) * -8deg));
+        }
+
+        .fragment-1 img {
+            left: 0;
+            top: 0;
+        }
+
+        /* Haut droit */
+        .fragment-2 {
+            left: 50%;
+            top: 0;
+            transform:
+                translate(
+                    calc((1 - var(--progress)) * 180px),
+                    calc((1 - var(--progress)) * -130px)
+                )
+                rotate(calc((1 - var(--progress)) * 8deg));
+        }
+
+        .fragment-2 img {
+            left: -100%;
+            top: 0;
+        }
+
+        /* Bas gauche */
+        .fragment-3 {
+            left: 0;
+            top: 50%;
+            transform:
+                translate(
+                    calc((1 - var(--progress)) * -170px),
+                    calc((1 - var(--progress)) * 150px)
+                )
+                rotate(calc((1 - var(--progress)) * 7deg));
+        }
+
+        .fragment-3 img {
+            left: 0;
+            top: -100%;
+        }
+
+        /* Bas droit */
+        .fragment-4 {
+            left: 50%;
+            top: 50%;
+            transform:
+                translate(
+                    calc((1 - var(--progress)) * 190px),
+                    calc((1 - var(--progress)) * 160px)
+                )
+                rotate(calc((1 - var(--progress)) * -7deg));
+        }
+
+        .fragment-4 img {
+            left: -100%;
+            top: -100%;
+        }
+
+        .model-info {
+            padding: 30px;
+
+            opacity: calc(0.05 + (var(--progress) * 0.95));
+            transform:
+                translateX(calc((1 - var(--progress)) * 50px));
+            filter:
+                blur(calc((1 - var(--progress)) * 5px));
+        }
+
+        .model-number {
+            font-size: 12px;
+            letter-spacing: 3px;
+            opacity: 0.5;
+            margin-bottom: 20px;
+        }
+
+        .model-title {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(35px, 5vw, 70px);
+            font-weight: 400;
+            margin-bottom: 25px;
+        }
+
+        .model-description {
+            font-size: 16px;
+            line-height: 2;
+            color: rgba(255, 255, 255, 0.65);
+            max-width: 500px;
+            margin-bottom: 35px;
+        }
+
+        .order-button {
+            display: inline-block;
+            padding: 15px 28px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition:
+                background 0.3s ease,
+                color 0.3s ease;
+        }
+
+        .order-button:hover {
+            background: white;
+            color: black;
+        }
+
+
+        /* =========================================================
+           CONFIGURATEUR — PROJET SUR MESURE
+        ========================================================= */
+
+        .custom-section {
+            padding: 110px 7vw 130px;
+            background: #0a0a0a;
+            border-top: 1px solid rgba(216,179,106,.16);
+            border-bottom: 1px solid rgba(216,179,106,.12);
+        }
+
+        .custom-grid {
+            max-width: 1180px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: .9fr 1.1fr;
+            gap: 70px;
+            align-items: start;
+        }
+
+        .custom-intro h2 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(42px, 5vw, 72px);
+            font-weight: 400;
+            line-height: 1.05;
+            margin: 20px 0 28px;
+        }
+
+        .custom-intro h2 span { color: #d8b36a; }
+
+        .custom-intro p {
+            color: rgba(255,255,255,.68);
+            line-height: 1.9;
+            max-width: 500px;
+        }
+
+        .custom-note {
+            margin-top: 35px;
+            padding: 22px 24px;
+            border-left: 1px solid #d8b36a;
+            background: rgba(255,255,255,.025);
+            color: rgba(255,255,255,.72);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .custom-form {
+            padding: 35px;
+            border: 1px solid rgba(255,255,255,.12);
+            background: rgba(255,255,255,.025);
+        }
+
+        .custom-form-title {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 28px;
+            color: #d8b36a;
+        }
+
+        .custom-field { margin-bottom: 20px; }
+        .custom-field label {
+            display: block;
+            margin-bottom: 9px;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.62);
+        }
+
+        .custom-field select,
+        .custom-field textarea {
+            width: 100%;
+            box-sizing: border-box;
+            background: #d8b36a;
+            color: #090909;
+            border: 1px solid #d8b36a;
+            padding: 15px 17px;
+            font: inherit;
+            font-weight: 600;
+            outline: none;
+            border-radius: 0;
+            cursor: pointer;
+            transition: .25s ease;
+        }
+
+        .custom-field select:hover,
+        .custom-field select:focus {
+            background: #f0d18b;
+            border-color: #f0d18b;
+            box-shadow: 0 0 0 1px rgba(216,179,106,.35);
+        }
+
+        .custom-field select option {
+            background: #d8b36a;
+            color: #090909;
+        }
+
+        .custom-field textarea {
+            background: #111;
+            color: white;
+            border-color: rgba(216,179,106,.45);
+            cursor: text;
+        }
+
+        .custom-field textarea:focus { border-color: #d8b36a; }
+        .custom-field textarea { min-height: 105px; resize: vertical; }
+
+        .custom-selected {
+            margin-bottom: 24px;
+            padding: 14px 16px;
+            background: rgba(216,179,106,.08);
+            border: 1px solid rgba(216,179,106,.25);
+            font-size: 12px;
+        }
+
+        .custom-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:25px; }
+        .custom-submit {
+            border: 1px solid #d8b36a;
+            background: #d8b36a;
+            color: #090909;
+            padding: 15px 22px;
+            font-size: 11px;
+            letter-spacing: 1.7px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: .25s ease;
+        }
+        .custom-submit:hover { background: white; border-color: white; }
+        .custom-reset {
+            border: 1px solid rgba(255,255,255,.25);
+            background: transparent;
+            color: white;
+            padding: 15px 22px;
+            font-size: 11px;
+            letter-spacing: 1.7px;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        @media (max-width: 800px) {
+            .custom-grid { grid-template-columns: 1fr; gap: 40px; }
+            .custom-form { padding: 24px; }
+        }
+
+        /* =========================================================
+           CONTACT
+        ========================================================= */
+
+        .contact {
+            min-height: 80vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            background:
+                linear-gradient(
+                    rgba(0, 0, 0, 0.65),
+                    rgba(0, 0, 0, 0.9)
+                ),
+                url("images/contact.jpg") center/cover no-repeat;
+        }
+
+        .contact-content {
+            max-width: 800px;
+        }
+
+        .contact h2 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(45px, 7vw, 90px);
+            font-weight: 400;
+
+            margin-bottom: 30px;
+        }
+
+        .contact p {
+            color: rgba(255, 255, 255, 0.65);
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        .phone {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(28px, 5vw, 50px);
+            display: block;
+            margin-bottom: 30px;
+        }
+
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .contact-button {
+            padding: 16px 30px;
+
+            border: 1px solid rgba(255, 255, 255, 0.5);
+
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+
+            transition:
+                background 0.3s ease,
+                color 0.3s ease;
+        }
+
+        .contact-button:hover {
+            background: white;
+            color: black;
+        }
+
+
+        /* =========================================================
+           WHATSAPP FLOTTANT
+        ========================================================= */
+
+        .whatsapp {
+            position: fixed;
+            left: 25px;
+            bottom: 25px;
+
+            width: 58px;
+            height: 58px;
+
+            z-index: 3000;
+
+            border-radius: 50%;
+
+            background: #25D366;
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 22px;
+
+            box-shadow:
+                0 8px 30px rgba(0, 0, 0, 0.35);
+
+            transition: transform 0.3s ease;
+        }
+
+        .whatsapp:hover {
+            transform: scale(1.1);
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+            padding: 35px 7%;
+
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+            text-align: center;
+
+            color: rgba(255, 255, 255, 0.4);
+
+            font-size: 11px;
+            letter-spacing: 2px;
+        }
+
+
+        /* =========================================================
+           ANIMATIONS
+        ========================================================= */
+
+        @keyframes introAppear {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 900px) {
+
+            nav {
+                display: none;
+            }
+
+            section {
+                padding: 90px 6%;
+            }
+
+            .bio-grid,
+            .model,
+            .model:nth-child(even) {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .model:nth-child(even) .model-image,
+            .model:nth-child(even) .model-info {
+                order: initial;
+            }
+
+            .bio-image {
+                height: 500px;
+            }
+
+            .model-image {
+                min-height: 0;
+            }
+
+            .model {
+                margin-bottom: 120px;
+            }
+
+            .photo-card {
+                width: 240px;
+                height: 340px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .photos-intro-space {
+                min-height: 190px;
+            }
+
+            .intro-title {
+                letter-spacing: 4px;
+            }
+
+            .intro-subtitle {
+                font-size: 10px;
+                letter-spacing: 2px;
+            }
+
+            .hero {
+                min-height: 650px;
+            }
+
+            .hero-content {
+                padding: 8% 6%;
+            }
+
+            .bio-image {
+                height: 420px;
+            }
+
+            .model-image {
+                min-height: 0;
+            }
+
+            .whatsapp {
+                left: 15px;
+                bottom: 15px;
+
+                width: 52px;
+                height: 52px;
+            }
+
+            #musicButton {
+                right: 15px;
+                bottom: 15px;
+
+                width: 48px;
+                height: 48px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            .photos-track {
+                animation: none !important;
+            }
+        }
+
+
+        /* =========================================================
+           IDENTITÉ — MAISON THEODORA
+        ========================================================= */
+
+        .intro-title {
+            letter-spacing: 6px;
+            line-height: 0.88;
+            text-shadow: 0 0 35px rgba(216, 179, 106, 0.16);
+        }
+
+        .intro-title span {
+            font-size: 0.58em;
+            letter-spacing: 12px;
+            opacity: 0.92;
+        }
+
+        .intro-title strong {
+            font-size: 1em;
+            font-weight: 400;
+            letter-spacing: 7px;
+            color: #d8b36a;
+            text-shadow:
+                0 0 18px rgba(216, 179, 106, 0.28),
+                0 0 55px rgba(216, 179, 106, 0.10);
+        }
+
+        .logo {
+            color: #d8b36a;
+            text-shadow: 0 0 18px rgba(216, 179, 106, 0.15);
+        }
+
+        .hero-label::before {
+            content: "MAISON THEODORA · ";
+            color: #d8b36a;
+        }
+
+        .collection .section-label {
+            color: #d8b36a;
+            opacity: 0.85;
+        }
+
+        @media (max-width: 600px) {
+            .intro-title span {
+                letter-spacing: 7px;
+            }
+
+            .intro-title strong {
+                letter-spacing: 4px;
+                font-size: 0.9em;
+            }
+        }
+
+
+        /* =========================================================
+           RÉSEAUX SOCIAUX
+        ========================================================= */
+
+        .social-section {
+            padding: 110px 7%;
+            text-align: center;
+            background: #090909;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .social-section .section-label {
+            color: #d8b36a;
+            opacity: 0.85;
+        }
+
+        .social-section h2 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(38px, 6vw, 70px);
+            font-weight: 400;
+            line-height: 1.05;
+            margin-bottom: 45px;
+        }
+
+        .social-section h2 span {
+            opacity: 0.65;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            min-width: 190px;
+            min-height: 58px;
+            padding: 15px 28px;
+            border: 1px solid rgba(216, 179, 106, 0.55);
+            color: #fff;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition:
+                background 0.3s ease,
+                color 0.3s ease,
+                transform 0.3s ease,
+                border-color 0.3s ease;
+        }
+
+        .social-link svg {
+            width: 23px;
+            height: 23px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        .social-instagram svg {
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.8;
+        }
+
+        .social-instagram .instagram-dot {
+            fill: currentColor;
+            stroke: none;
+        }
+
+        .social-link:hover {
+            background: #d8b36a;
+            border-color: #d8b36a;
+            color: #080808;
+            transform: translateY(-4px);
+        }
+
+        @media (max-width: 600px) {
+            .intro-bio {
+                font-size: 13px;
+                line-height: 1.75;
+                margin-bottom: 32px;
+            }
+
+            .social-section {
+                padding: 85px 6%;
+            }
+
+            .social-links {
+                flex-direction: column;
+            }
+
+            .social-link {
+                width: min(100%, 320px);
+            }
+        }
+
+    
+        /* =========================================================
+           NOUVEAU CARROUSEL MANUEL + ESPACE TEXTE
+        ========================================================= */
+
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            margin-left: 25px;
+        }
+
+        #languageButton {
+            min-width: 48px;
+            height: 36px;
+            padding: 0 14px;
+            border: 1px solid rgba(216, 179, 106, 0.65);
+            background: rgba(0, 0, 0, 0.35);
+            color: #d8b36a;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: background .3s ease, color .3s ease, transform .3s ease, border-color .3s ease;
+        }
+
+        #languageButton:hover {
+            background: #d8b36a;
+            color: #080808;
+            border-color: #d8b36a;
+            transform: translateY(-2px);
+        }
+
+        .photos-section {
+            padding-top: 155px;
+        }
+
+        .photos-intro-space {
+            min-height: 240px;
+            margin: 0 0 42px;
+            border-top: 1px solid rgba(216, 179, 106, .14);
+            border-bottom: 1px solid rgba(216, 179, 106, .14);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .photos-carousel {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            width: 100%;
+        }
+
+        .photos-track-wrapper {
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        .photos-track {
+            display: flex;
+            gap: 20px;
+            width: max-content;
+            animation: none !important;
+            transform: translateX(0);
+            transition: transform .55s cubic-bezier(.22,.61,.36,1);
+            will-change: transform;
+        }
+
+        .photo-card {
+            width: 300px;
+            height: 420px;
+            flex: 0 0 300px;
+            overflow: hidden;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform .7s ease;
+        }
+
+        .photo-card:hover img {
+            transform: scale(1.08);
+        }
+
+        .carousel-arrow {
+            width: 48px;
+            height: 48px;
+            flex: 0 0 48px;
+            border: 1px solid rgba(216, 179, 106, .55);
+            background: rgba(0, 0, 0, .35);
+            color: #d8b36a;
+            cursor: pointer;
+            font-size: 22px;
+            transition: background .3s ease, color .3s ease, transform .3s ease;
+        }
+
+        .carousel-arrow:hover {
+            background: #d8b36a;
+            color: #080808;
+            transform: translateY(-2px);
+        }
+
+        .carousel-arrow:disabled {
+            opacity: .3;
+            cursor: default;
+            transform: none;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 9px;
+            margin-top: 25px;
+        }
+
+        .carousel-dot {
+            width: 7px;
+            height: 7px;
+            padding: 0;
+            border: 1px solid rgba(216, 179, 106, .7);
+            border-radius: 50%;
+            background: transparent;
+            cursor: pointer;
+            transition: transform .3s ease, background .3s ease;
+        }
+
+        .carousel-dot.active {
+            background: #d8b36a;
+            transform: scale(1.35);
+        }
+
+        @media (max-width: 900px) {
+            .language-switcher {
+                margin-left: auto;
+                margin-right: 15px;
+            }
+
+            .photos-intro-space {
+                min-height: 160px;
+            }
+
+            .photo-card {
+                width: 240px;
+                height: 340px;
+                flex-basis: 240px;
+            }
+
+            .carousel-arrow {
+                width: 42px;
+                height: 42px;
+                flex-basis: 42px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            #languageButton {
+                min-width: 44px;
+                height: 34px;
+                padding: 0 12px;
+                font-size: 9px;
+            }
+
+            .language-switcher {
+                margin-right: 5px;
+            }
+
+            .photos-section {
+                padding-top: 130px;
+            }
+
+            .photos-intro-space {
+                min-height: 190px;
+            }
+
+            .photos-carousel {
+                gap: 8px;
+            }
+
+            .photo-card {
+                width: calc(100vw - 110px);
+                height: min(125vw, 500px);
+                flex-basis: calc(100vw - 110px);
+            }
+
+            .carousel-arrow {
+                width: 38px;
+                height: 38px;
+                flex-basis: 38px;
+                font-size: 18px;
+            }
+        }
+</style>
+
+<style id="bio-block-fix">
+.bio-block {
+  max-width: 1100px;
+  margin: 0 auto 45px;
+  padding: 32px 38px;
+  box-sizing: border-box;
+  text-align: left;
+  line-height: 1.8;
+  background: rgba(255,255,255,.025);
+  border: 1px solid rgba(216,179,106,.28);
+}
+.bio-block p { margin: 0 0 18px; }
+.bio-block p:last-child { margin-bottom: 0; }
+@media (max-width: 700px) { .bio-block { padding: 24px 20px; } }
+</style>
+
+<style id="photos-bio-paragraph-fix">
+.photos-biography .photos-bio-paragraph {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.9;
+    color: rgba(255,255,255,.78);
+    text-align: left;
+    max-width: none;
+}
+.photos-biography .photos-bio-paragraph span {
+    display: inline;
+}
+</style>
+</head>
+
+
+<body class="locked">
+
+
+    <!-- =========================================================
+         ÉCRAN D'INTRODUCTION
+    ========================================================= -->
+
+    <div class="intro-screen" id="introScreen">
+
+        <div class="intro-content">
+
+            <div class="intro-small">
+                Création · Élégance · Identité
+            </div>
+
+            <h1 class="intro-title">
+                <span>MAISON</span><br>
+                <strong>THEODORA</strong>
+            </h1>
+
+            <div class="intro-subtitle">
+                Entrez dans un univers de création
+            </div>
+
+            <p class="intro-bio">
+                Derrière chaque création, il y a aussi moi, devant l’objectif.
+                Au-delà du stylisme, je suis également modèle et j’aime incarner
+                les tenues que j’imagine, leur donner vie et exprimer ma créativité
+                à travers chaque pose.
+            </p>
+
+            <button
+                type="button"
+                id="enterButton"
+                aria-label="Entrer dans l'univers"
+            >
+                Entrer dans l'univers →
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         MUSIQUE
+    ========================================================= -->
+
+    <audio
+        id="siteMusic"
+        loop
+        preload="auto"
+    >
+        <source
+            src="./ambiance.mp3"
+            type="audio/mpeg"
+        >
+
+        Votre navigateur ne supporte pas la lecture audio.
+    </audio>
+
+
+    <!-- =========================================================
+         HEADER
+    ========================================================= -->
+
+    <header>
+
+        <a href="#accueil" class="logo">
+            MAISON THEODORA
+        </a>
+
+        <nav>
+
+            <a href="#biographie">
+                À propos
+            </a>
+
+            <a href="#collection">
+                Réalisations
+            </a>
+
+            <a href="#contact">
+                Contact
+            </a>
+
+        </nav>
+
+        <div class="language-switcher">
+            <button id="languageButton" type="button" aria-label="Passer le site en français">FR</button>
+        </div>
+
+    </header>
+
+
+    <!-- =========================================================
+         BOUTON MUSIQUE
+    ========================================================= -->
+
+    <button
+        id="musicButton"
+        type="button"
+        aria-label="Activer ou désactiver la musique"
+    >
+        ♪
+    </button>
+
+
+    <!-- =========================================================
+         HERO
+    ========================================================= -->
+
+    <main>
+
+        <section
+            class="hero"
+            id="accueil"
+        >
+
+            <div
+                class="hero-image"
+                id="heroImage"
+            ></div>
+
+            <div class="hero-content">
+
+                <div class="hero-label">
+                    Création sur mesure
+                </div>
+
+                <h1>
+                    L'art de<br>
+                    s'habiller.
+                </h1>
+
+                <p>
+                    Des créations pensées pour révéler une identité,
+                    une personnalité et une manière unique de se présenter
+                    au monde.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             BIOGRAPHIE
+        ===================================================== -->
+
+        <section
+            class="bio"
+            id="biographie"
+        >
+
+            <div class="section-label">
+                La créatrice
+            </div>
+
+            <div class="bio-grid">
+
+                <div>
+
+                    <img
+                        class="bio-image"
+                        src="images/createur.jpg"
+                        alt="Portrait de la créatrice"
+                    >
+
+                </div>
+
+
+                <div class="bio-text">
+
+                    <h2 class="section-title">
+                        Une histoire<br>
+                        de passion.
+                    </h2>
+
+                    <p>
+                        Depuis mes débuts, la création représente bien plus
+                        qu'un simple métier. Chaque vêtement est pensé comme
+                        une expression de personnalité et de caractère.
+                    </p>
+
+                    <p>
+                        À travers les matières, les coupes, les détails et
+                        les finitions, chaque réalisation raconte une histoire.
+                    </p>
+
+                    <p>
+                        Mon approche repose sur une idée simple :
+                        créer des pièces qui correspondent réellement
+                        à la personne qui les porte.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             6 PHOTOS — CARROUSEL MANUEL
+        ===================================================== -->
+
+        <section class="photos-section" id="univers">
+
+            <div class="section-label">
+                L'univers
+            </div>
+
+            <h2 class="section-title">
+                Derrière<br>
+                les créations.
+            </h2>
+
+            <div class="bio-block photos-intro-space photos-biography" id="photosBiography">
+                <p class="photos-bio-paragraph"><span id="photosBioP1">Bonjour, je suis Tossou Flora Théodora Ahouéfa, mais tout le monde m’appelle Théodora. J’ai 20 ans et je vis à Calavi, au Bénin.</span> <span id="photosBioP2">Je suis styliste et je fais de la couture pour hommes et femmes. Ce que j’aime, c’est créer des tenues qui vous vont parfaitement et qui vous donnent confiance dès que vous les portez. Chaque pièce est travaillée avec soin, de la coupe aux finitions, et j’écoute vraiment vos envies pour que le résultat vous ressemble.</span> <span id="photosBioP3">Je me forme à l’école de mode ESDAM, où je suis en 2ᵉ année, et je prépare en même temps une Licence 3 d’anglais. Ce double parcours m’a appris à être sérieuse, organisée et ouverte, des qualités qui comptent quand on confie son vêtement à quelqu’un.</span> <span id="photosBioP4">À mes heures perdues, je suis aussi modèle photo. Cela me permet de savoir comment un vêtement tombe, bouge et se met en valeur une fois porté.</span> <span id="photosBioP5">On me connaît pour ma façon de mêler parfaitement mode, beauté et lifestyle, avec un style à moi et une vraie passion pour ce que je fais.</span> <span id="photosBioP6">Célibataire, sans enfants, je suis entièrement concentrée sur mon métier et sur mes projets.</span></p>
+            </div>
+
+            <div class="photos-carousel" aria-label="Galerie de six photos">
+
+                <button class="carousel-arrow carousel-prev" type="button" aria-label="Photo précédente">←</button>
+
+                <div class="photos-track-wrapper">
+                    <div class="photos-track" id="photosTrack">
+
+                        <div class="photo-card">
+                            <img id="photo1" src="images/photo1.jpg" alt="Création 1" loading="eager" decoding="async" onerror="if(!this.dataset.fallback){this.dataset.fallback="1";this.src="images/photo1.jpeg";}else if(this.dataset.fallback==="1"){this.dataset.fallback="2";this.src="images/photo1.png";}else if(this.dataset.fallback==="2"){this.dataset.fallback="3";this.src="images/Photo1.jpg";}else if(this.dataset.fallback==="3"){this.dataset.fallback="4";this.src="images/PHOTO1.jpg";}else{this.onerror=null;}">
+                        </div>
+
+                        <div class="photo-card">
+                            <img src="images/photo2.jpg" alt="Création 2" loading="eager" decoding="async">
+                        </div>
+
+                        <div class="photo-card">
+                            <img src="images/photo3.jpg" alt="Création 3" loading="eager" decoding="async">
+                        </div>
+
+                        <div class="photo-card">
+                            <img src="images/photo4.jpg" alt="Création 4" loading="eager" decoding="async">
+                        </div>
+
+                        <div class="photo-card">
+                            <img src="images/photo5.jpg" alt="Création 5" loading="eager" decoding="async">
+                        </div>
+
+                        <div class="photo-card">
+                            <img src="images/photo6.jpg" alt="Création 6" loading="eager" decoding="async">
+                        </div>
+
+                    </div>
+                </div>
+
+                <button class="carousel-arrow carousel-next" type="button" aria-label="Photo suivante">→</button>
+
+            </div>
+
+            <div class="carousel-dots" id="carouselDots" aria-label="Sélectionner une photo">
+                <button class="carousel-dot active" type="button" aria-label="Afficher la photo 1"></button>
+                <button class="carousel-dot" type="button" aria-label="Afficher la photo 2"></button>
+                <button class="carousel-dot" type="button" aria-label="Afficher la photo 3"></button>
+                <button class="carousel-dot" type="button" aria-label="Afficher la photo 4"></button>
+                <button class="carousel-dot" type="button" aria-label="Afficher la photo 5"></button>
+                <button class="carousel-dot" type="button" aria-label="Afficher la photo 6"></button>
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             COLLECTION
+        ===================================================== -->
+
+        <section
+            class="collection"
+            id="collection"
+        >
+
+            <div class="section-label">
+                Réalisations
+            </div>
+
+            <h2 class="section-title">
+                La collection.
+            </h2>
+
+
+            <!-- MODÈLE 01 -->
+
+            <article class="model">
+
+                <div class="model-image">
+
+                    <div class="model-fragment fragment-1">
+                        <img src="images/modele1.jpg" alt="Création modèle 1" fetchpriority="high" decoding="async">
+                    </div>
+
+                    <div class="model-fragment fragment-2">
+                        <img src="images/modele1.jpg" alt="" aria-hidden="true">
+                    </div>
+
+                    <div class="model-fragment fragment-3">
+                        <img src="images/modele1.jpg" alt="" aria-hidden="true">
+                    </div>
+
+                    <div class="model-fragment fragment-4">
+                        <img src="images/modele1.jpg" alt="" aria-hidden="true">
+                    </div>
+
+                </div>
+
+                <div class="model-info">
+
+                    <div class="model-number">
+                        01 — CRÉATION
+                    </div>
+
+                    <h3 class="model-title">
+                        Signature
+                    </h3>
+
+                    <p class="model-description">
+                        Poésie Bohème & Jeux de Matières Créée autour du concept « Mix et match narratif dans un style bohème chic », cette tenue met à l'honneur un gilet sur mesure associant le lin naturel aux textiles imposés. L'œuvre joue sur l'assemblage et la juxtaposition des textures pour raconter une histoire visuelle unique. Le résultat offre une silhouette à la fois fluide, authentique et raffinée.
+                    </p>
+
+                    <a
+                        class="order-button"
+                        href="https://wa.me/22944007806?text=Bonjour%2C%20je%20suis%20int%C3%A9ress%C3%A9%28e%29%20par%20la%20cr%C3%A9ation%20Signature."
+                        target="_blank"
+                    >
+                        Discuter de cette création
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- MODÈLE 02 -->
+
+            <article class="model">
+
+                <div class="model-image">
+
+                    <div class="model-fragment fragment-1">
+                        <img src="images/modele2.jpg" alt="Création modèle 2">
+                    </div>
+
+                    <div class="model-fragment fragment-2">
+                        <img src="images/modele2.jpg" alt="" aria-hidden="true">
+                    </div>
+
+                    <div class="model-fragment fragment-3">
+                        <img src="images/modele2.jpg" alt="" aria-hidden="true">
+                    </div>
+
+                    <div class="model-fragment fragment-4">
+                        <img src="images/modele2.jpg" alt="" aria-hidden="true">
+                    </div>
+
+                </div>
+
+                <div class="model-info">
+
+                    <div class="model-number">
+                        02 — CRÉATION
+                    </div>
+
+                    <h3 class="model-title">
+                        Éclat
+                    </h3>
+
+                    <p class="model-description">
+                        L'Art Lyrique Avant-Garde Conçue dans le cadre du thème « Un métier, une tenue dans un style avant-gardiste », cette création rend hommage à la figure théâtrale de la chanteuse d'opéra. La pièce s'articule autour d'une relecture audacieuse de la chemise classique, intégrée dans une coupe structurée et dramatique. Ce modèle propose une vision futuriste du vestiaire lyrique, mêlant élégance scénique et modernité disruptive.
+                    </p>
+
+                    <a
+                        class="order-button"
+                        href="https://wa.me/22944007806?text=Bonjour%2C%20je%20suis%20int%C3%A9ress%C3%A9%28e%29%20par%20la%20cr%C3%A9ation%20%C3%89clat."
+                        target="_blank"
+                    >
+                        Discuter de cette création
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- MODÈLE 03 -->
+
+            <article class="model">
+
+                <div class="model-image">
+
+                    <div class="model-fragment fragment-1">
+                        <img src="images/modele3.jpg" alt="Création modèle 3">
+                    </div>
+
+                    <div class="model-fragment fragment-2">
+                        <img src="images/modele3.jpg" alt="" aria-hidden="true">
+                    </div>
+
+                    <div class="model-fragment fragment-3">
+                        <img src="images/modele3.jpg" alt="" aria-hidden="true">
+                    </div>
+
+                    <div class="model-fragment fragment-4">
+                        <img src="images/modele3.jpg" alt="" aria-hidden="true">
+                    </div>
+
+                </div>
+
+                <div class="model-info">
+
+                    <div class="model-number">
+                        03 — CRÉATION
+                    </div>
+
+                    <h3 class="model-title">
+                        Héritage
+                    </h3>
+
+                    <p class="model-description">
+                        La Sérénité Nuptiale Imaginée pour le thème « Où veux-tu m'épouser ? », cette tenue de mariage civil revisite l'élégance nuptiale à travers la confection d'un corset structuré. Travaillée dans une palette de bleus incarnant la douceur et la sérénité, la pièce équilibre la modernité de sa coupe et la délicatesse de sa teinte. Elle incarne une allure contemporaine et empreinte d'émotion.
+                    </p>
+
+                    <a
+                        class="order-button"
+                        href="https://wa.me/22944007806?text=Bonjour%2C%20je%20suis%20int%C3%A9ress%C3%A9%28e%29%20par%20la%20cr%C3%A9ation%20H%C3%A9ritage."
+                        target="_blank"
+                    >
+                        Discuter de cette création
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- MODÈLE 04 -->
+
+            <article class="model">
+
+                <div class="model-image">
+
+                    <div class="model-fragment fragment-1">
+                        <img src="images/modele4.jpg" alt="Création modèle 4">
+                    </div>
+
+                    <div class="model-fragment fragment-2">
+                        <img src="images/modele4.jpg" alt="" aria-hidden="true">
+                    </div>
+
+                    <div class="model-fragment fragment-3">
+                        <img src="images/modele4.jpg" alt="" aria-hidden="true">
+                    </div>
+
+                    <div class="model-fragment fragment-4">
+                        <img src="images/modele4.jpg" alt="" aria-hidden="true">
+                    </div>
+
+                </div>
+
+                <div class="model-info">
+
+                    <div class="model-number">
+                        04 — CRÉATION
+                    </div>
+
+                    <h3 class="model-title">
+                        Évidence
+                    </h3>
+
+                    <p class="model-description">
+                        Jupe Asymétrique Bohème Chic
+                        Ce look incarne l'esprit « bohème chic » dans toute sa fraîcheur grâce à un jeu de superpositions et de volumes parfaitement maîtrisé. La pièce maîtresse est cette jupe longue fluide aux tons orangés et imprimés artisanaux, confectionnée avec un drapé asymétrique à panneaux superposés qui apporte un mouvement naturel et aérien à chaque pas. Associée à un top blanc minimaliste pour équilibrer la silhouette, l'ensemble met en valeur les textures naturelles. C'est une tenue solaire et sophistiquée, idéale pour un style estival à la fois décontracté et élégant.
+                    </p>
+
+                    <a
+                        class="order-button"
+                        href="https://wa.me/22944007806?text=Bonjour%2C%20je%20suis%20int%C3%A9ress%C3%A9%28e%29%20par%20la%20cr%C3%A9ation%20%C3%89vidence."
+                        target="_blank"
+                    >
+                        Discuter de cette création
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- MODÈLE 05 -->
+
+            <article class="model">
+
+                <div class="model-image">
+
+                    <div class="model-fragment fragment-1">
+                        <img src="images/modele5.jpg" alt="Création modèle 5">
+                    </div>
+
+                    <div class="model-fragment fragment-2">
+                        <img src="images/modele5.jpg" alt="" aria-hidden="true">
+                    </div>
+
+                    <div class="model-fragment fragment-3">
+                        <img src="images/modele5.jpg" alt="" aria-hidden="true">
+                    </div>
+
+                    <div class="model-fragment fragment-4">
+                        <img src="images/modele5.jpg" alt="" aria-hidden="true">
+                    </div>
+
+                </div>
+
+                <div class="model-info">
+
+                    <div class="model-number">
+                        05 — CRÉATION
+                    </div>
+
+                    <h3 class="model-title">
+                        Romantique
+                    </h3>
+
+                    <p class="model-description">
+                        Corset Rose Romantique
+
+                        Cette création joue sur un contraste de textures fascinant entre la finesse structurée du corset satiné rose bonbon et le relief texturé de la mini-jupe. Le bustier baleiné souligne la taille tout en apportant une tenue impeccable, rehaussé de finitions dentelées fuchsia qui soulignent la poitrine et la bordure basse. La jupe courte, entièrement brodée de détails en relief ton sur ton, apporte une dimension poétique et couture à l'ensemble. C'est une pièce audacieuse et féminine qui revisite la corseterie classique dans une esthétique moderne et pétillante.
+                    </p>
+
+                    <a
+                        class="order-button"
+                        href="https://wa.me/22944007806?text=Bonjour%2C%20je%20suis%20int%C3%A9ress%C3%A9%28e%29%20par%20la%20cr%C3%A9ation%20%C3%89vidence."
+                        target="_blank"
+                    >
+                        Discuter de cette création
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- MODÈLE 06 -->
+
+            <article class="model">
+
+                <div class="model-image">
+
+                    <div class="model-fragment fragment-1">
+                        <img src="images/modele6.jpg" alt="Création modèle 6">
+                    </div>
+
+                    <div class="model-fragment fragment-2">
+                        <img src="images/modele6.jpg" alt="" aria-hidden="true">
+                    </div>
+
+                    <div class="model-fragment fragment-3">
+                        <img src="images/modele6.jpg" alt="" aria-hidden="true">
+                    </div>
+
+                    <div class="model-fragment fragment-4">
+                        <img src="images/modele6.jpg" alt="" aria-hidden="true">
+                    </div>
+
+                </div>
+
+                <div class="model-info">
+
+                    <div class="model-number">
+                        06 — CRÉATION
+                    </div>
+
+                    <h3 class="model-title">
+                        Sensuelle
+                    </h3>
+
+                    <p class="model-description">
+                        Émeraude Nocturne
+
+                        Une création pensée autour de l’élégance et de l’assurance. Le bleu profond apporte une touche sophistiquée, tandis que les découpes et les détails métalliques donnent du caractère à la silhouette. Une pièce moderne, féminine et résolument audacieuse.
+                    </p>
+
+                    <a
+                        class="order-button"
+                        href="https://wa.me/22944007806?text=Bonjour%2C%20je%20suis%20int%C3%A9ress%C3%A9%28e%29%20par%20la%20cr%C3%A9ation%20%C3%89vidence."
+                        target="_blank"
+                    >
+                        Discuter de cette création
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- MODÈLE 07 -->
+
+            <article class="model">
+
+                <div class="model-image">
+
+                    <div class="model-fragment fragment-1">
+                        <img src="images/modele7.jpg" alt="Création modèle 7">
+                    </div>
+
+                    <div class="model-fragment fragment-2">
+                        <img src="images/modele7.jpg" alt="" aria-hidden="true">
+                    </div>
+
+                    <div class="model-fragment fragment-3">
+                        <img src="images/modele7.jpg" alt="" aria-hidden="true">
+                    </div>
+
+                    <div class="model-fragment fragment-4">
+                        <img src="images/modele7.jpg" alt="" aria-hidden="true">
+                    </div>
+
+                </div>
+
+                <div class="model-info">
+
+                    <div class="model-number">
+                        07 — CRÉATION
+                    </div>
+
+                    <h3 class="model-title">
+                        Solaire
+                    </h3>
+
+                    <p class="model-description">
+                        Lumière Tropicale
+
+                        Une tenue qui célèbre la fraîcheur et l'élégance. Le jaune citron apporte une touche de lumière, tandis que les détails dorés et les perles colorées ajoutent du caractère et du raffinement.
+                        Un look moderne, joyeux et résolument féminin.
+                    </p>
+
+                    <a
+                        class="order-button"
+                        href="https://wa.me/22944007806?text=Bonjour%2C%20je%20suis%20int%C3%A9ress%C3%A9%28e%29%20par%20la%20cr%C3%A9ation%20%C3%89vidence."
+                        target="_blank"
+                    >
+                        Discuter de cette création
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- MODÈLE 08 -->
+
+            <article class="model">
+
+                <div class="model-image">
+
+                    <div class="model-fragment fragment-1">
+                        <img src="images/modele8.jpg" alt="Création modèle 8" loading="lazy" decoding="async">
+                    </div>
+
+                    <div class="model-fragment fragment-2">
+                        <img src="images/modele8.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                    </div>
+
+                    <div class="model-fragment fragment-3">
+                        <img src="images/modele8.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                    </div>
+
+                    <div class="model-fragment fragment-4">
+                        <img src="images/modele8.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                    </div>
+
+                </div>
+
+                <div class="model-info">
+
+                    <div class="model-number">
+                        08 — CRÉATION
+                    </div>
+
+                    <h3 class="model-title">
+                        Nature
+                    </h3>
+
+                    <p class="model-description">
+                        Cette création associe un haut péplum cintré sans bretelles à un pantalon large et fluide, formant une silhouette structurée et moderne. Réalisé dans un textile imprimé aux motifs géométriques et organiques verts et blancs, l'ensemble met en valeur une allure élégante et équilibrée. Des accessoires métalliques imposants aux poignets et une coiffure travaillée apportent une touche de sophistication à ce style urbain et contemporain.
+                    </p>
+
+                    <a
+                        class="order-button"
+                        href="https://wa.me/22944007806?text=Bonjour%2C%20je%20suis%20int%C3%A9ress%C3%A9%28e%29%20par%20la%20cr%C3%A9ation%20%C3%89clipse."
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        Discuter de cette création
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- MODÈLE 09 -->
+
+            <article class="model">
+
+                <div class="model-image">
+
+                    <div class="model-fragment fragment-1">
+                        <img src="images/modele9.jpg" alt="Création modèle 9" loading="lazy" decoding="async">
+                    </div>
+
+                    <div class="model-fragment fragment-2">
+                        <img src="images/modele9.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                    </div>
+
+                    <div class="model-fragment fragment-3">
+                        <img src="images/modele9.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                    </div>
+
+                    <div class="model-fragment fragment-4">
+                        <img src="images/modele9.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                    </div>
+
+                </div>
+
+                <div class="model-info">
+
+                    <div class="model-number">
+                        09 — CRÉATION
+                    </div>
+
+                    <h3 class="model-title">
+                        Aura
+                    </h3>
+
+                    <p class="model-description">
+                        Élégance lumineuse<br><br>Une pièce qui joue sur la lumière, les textures et la fluidité. Les détails sont travaillés pour accompagner le mouvement et révéler une allure à la fois délicate et affirmée.
+                    </p>
+
+                    <a
+                        class="order-button"
+                        href="https://wa.me/22944007806?text=Bonjour%2C%20je%20suis%20int%C3%A9ress%C3%A9%28e%29%20par%20la%20cr%C3%A9ation%20Aura."
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        Discuter de cette création
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- MODÈLE 10 -->
+
+            <article class="model">
+
+                <div class="model-image">
+
+                    <div class="model-fragment fragment-1">
+                        <img src="images/modele10.jpg" alt="Création modèle 10" loading="lazy" decoding="async">
+                    </div>
+
+                    <div class="model-fragment fragment-2">
+                        <img src="images/modele10.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                    </div>
+
+                    <div class="model-fragment fragment-3">
+                        <img src="images/modele10.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                    </div>
+
+                    <div class="model-fragment fragment-4">
+                        <img src="images/modele10.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                    </div>
+
+                </div>
+
+                <div class="model-info">
+
+                    <div class="model-number">
+                        10 — CRÉATION
+                    </div>
+
+                    <h3 class="model-title">
+                        Foi et Spiritualité
+                    </h3>
+
+                    <p class="model-description">
+                        Cette tenue arabe se compose d’une abaya noire à manches longues, ornée de broderies dorées aux poignets, accompagnée d’un voile bordeaux richement décoré de motifs dorés. L’association des couleurs, les finitions brodées et la coupe ample caractérisent cet ensemble traditionnel, complété par un pendentif discret.
+                    </p>
+
+                    <a
+                        class="order-button"
+                        href="https://wa.me/22944007806?text=Bonjour%2C%20je%20suis%20int%C3%A9ress%C3%A9%28e%29%20par%20la%20cr%C3%A9ation%20Foi."
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        Discuter de cette création
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- MODÈLE 11 -->
+
+            <article class="model">
+
+                <div class="model-image">
+
+                    <div class="model-fragment fragment-1">
+                        <img src="images/modele11.jpg" alt="Création modèle 11" loading="lazy" decoding="async">
+                    </div>
+
+                    <div class="model-fragment fragment-2">
+                        <img src="images/modele11.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                    </div>
+
+                    <div class="model-fragment fragment-3">
+                        <img src="images/modele11.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                    </div>
+
+                    <div class="model-fragment fragment-4">
+                        <img src="images/modele11.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                    </div>
+
+                </div>
+
+                <div class="model-info">
+
+                    <div class="model-number">
+                        11 — CRÉATION
+                    </div>
+
+                    <h3 class="model-title">
+                        Impériale
+                    </h3>
+
+                    <p class="model-description">
+                        La robe longue bordeaux présente une coupe bustier ajustée, accompagnée d’un drapé couvrant les épaules et le dos. La silhouette est structurée par une taille marquée et une jupe près du corps. Les accessoires dorés, notamment les bracelets, apportent un contraste avec la couleur de la tenue.
+                    </p>
+
+                    <a
+                        class="order-button"
+                        href="https://wa.me/22944007806?text=Bonjour%2C%20je%20suis%20int%C3%A9ress%C3%A9%28e%29%20par%20la%20cr%C3%A9ation%20Imp%C3%A9riale."
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        Discuter de cette création
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- MODÈLE 12 -->
+
+            <article class="model">
+
+                <div class="model-image">
+
+                    <div class="model-fragment fragment-1">
+                        <img src="images/modele12.jpg" alt="Création modèle 12" loading="lazy" decoding="async">
+                    </div>
+
+                    <div class="model-fragment fragment-2">
+                        <img src="images/modele12.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                    </div>
+
+                    <div class="model-fragment fragment-3">
+                        <img src="images/modele12.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                    </div>
+
+                    <div class="model-fragment fragment-4">
+                        <img src="images/modele12.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                    </div>
+
+                </div>
+
+                <div class="model-info">
+
+                    <div class="model-number">
+                        12 — CRÉATION
+                    </div>
+
+                    <h3 class="model-title">
+                        Nébuleuse
+                    </h3>
+
+                    <p class="model-description">
+                        L'élégance en mouvement
+                        Cette tenue incarne la féminité moderne: une silhouette aérienne, des volumes maitrisés et une couleur qui attire la lumière.
+                        C'est la preuve qu'on peut être simple et remarquable à la fois.
+                    </p>
+
+                    <a
+                        class="order-button"
+                        href="https://wa.me/22944007806?text=Bonjour%2C%20je%20suis%20int%C3%A9ress%C3%A9%28e%29%20par%20la%20cr%C3%A9ation%20N%C3%A9buleuse."
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        Discuter de cette création
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- MODÈLE 13 -->
+
+            <article class="model">
+
+                <div class="model-image">
+
+                    <div class="model-fragment fragment-1">
+                        <img src="images/modele13.jpg" alt="Création modèle 13" loading="lazy" decoding="async">
+                    </div>
+
+                    <div class="model-fragment fragment-2">
+                        <img src="images/modele13.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                    </div>
+
+                    <div class="model-fragment fragment-3">
+                        <img src="images/modele13.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                    </div>
+
+                    <div class="model-fragment fragment-4">
+                        <img src="images/modele13.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                    </div>
+
+                </div>
+
+                <div class="model-info">
+
+                    <div class="model-number">
+                        13 — CRÉATION
+                    </div>
+
+                    <h3 class="model-title">
+                        Douceur
+                    </h3>
+
+                    <p class="model-description">
+                        La tenue se compose d’une robe bustier rose pâle, associée à une jupe fuchsia et à une longue cape fluide. Les grandes fleurs décoratives fuchsia apportent du relief à l’ensemble. Les bijoux dorés, les tresses relevées et les boucles d’oreilles complètent la tenue, en créant un contraste avec les différentes nuances de rose.
+                    </p>
+
+                    <a
+                        class="order-button"
+                        href="https://wa.me/22944007806?text=Bonjour%2C%20je%20suis%20int%C3%A9ress%C3%A9%28e%29%20par%20la%20cr%C3%A9ation%20%C3%89toile."
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        Discuter de cette création
+                    </a>
+
+                </div>
+
+            </article>
+
+
+        </section>
+
+
+        <!-- =====================================================
+             CONFIGURATEUR — PROJET SUR MESURE
+        ===================================================== -->
+        <section class="custom-section" id="projet-sur-mesure">
+            <div class="custom-grid">
+                <div class="custom-intro">
+                    <div class="section-label">Projet sur mesure</div>
+                    <h2>Créez votre <span>pièce.</span></h2>
+                    <p>
+                        Chaque création est pensée selon vos envies. Choisissez votre modèle,
+                        vos matières, vos couleurs et vos finitions afin de nous présenter
+                        votre projet.
+                    </p>
+                    <div class="custom-note">
+                        <strong>À savoir</strong><br>
+                        Le prix et le délai de conception dépendent de vos choix : modèle,
+                        matières, tissus, couleurs, finitions et niveau de personnalisation.
+                        Chaque projet fait l’objet d’une étude personnalisée.
+                    </div>
+                </div>
+
+                <div class="custom-form">
+                    <div class="custom-form-title">Personnalisez votre création</div>
+
+                    <div class="custom-selected" id="selectedCreation">Création sélectionnée : <strong>À choisir</strong></div>
+
+                    <div class="custom-field">
+                        <label for="customModel">1. Choisissez votre modèle</label>
+                        <select id="customModel">
+                            <option value="">Sélectionner un modèle</option>
+                        </select>
+                    </div>
+
+                    <div class="custom-field">
+                        <label for="customMaterial">2. Choisissez la matière / le tissu</label>
+                        <select id="customMaterial">
+                            <option value="">Sélectionner</option>
+                            <option>Lin naturel</option>
+                            <option>Satin</option>
+                            <option>Soie</option>
+                            <option>Velours</option>
+                            <option>Dentelle</option>
+                            <option>Wax / tissu imprimé</option>
+                            <option>Autre matière</option>
+                        </select>
+                    </div>
+
+                    <div class="custom-field">
+                        <label for="customColor">3. Choisissez la couleur</label>
+                        <select id="customColor">
+                            <option value="">Sélectionner</option>
+                            <option>Noir</option>
+                            <option>Blanc</option>
+                            <option>Rouge</option>
+                            <option>Rose</option>
+                            <option>Bleu</option>
+                            <option>Vert</option>
+                            <option>Jaune</option>
+                            <option>Bordeaux</option>
+                            <option>Selon votre inspiration</option>
+                        </select>
+                    </div>
+
+                    <div class="custom-field">
+                        <label for="customFinish">4. Choisissez les finitions / détails</label>
+                        <select id="customFinish">
+                            <option value="">Sélectionner</option>
+                            <option>Broderies</option>
+                            <option>Perles</option>
+                            <option>Détails métalliques</option>
+                            <option>Dentelle / volants</option>
+                            <option>Strass</option>
+                            <option>Finitions minimalistes</option>
+                            <option>Autre finition</option>
+                        </select>
+                    </div>
+
+                    <div class="custom-field">
+                        <label for="customLevel">5. Niveau de personnalisation</label>
+                        <select id="customLevel">
+                            <option value="">Sélectionner</option>
+                            <option>Adaptation légère du modèle</option>
+                            <option>Personnalisation importante</option>
+                            <option>Création entièrement sur mesure</option>
+                        </select>
+                    </div>
+
+                    <div class="custom-field">
+                        <label for="customMessage">6. Parlez-nous de votre projet</label>
+                        <textarea id="customMessage" placeholder="Taille, occasion, idées, modifications souhaitées..."></textarea>
+                    </div>
+
+                    <div class="custom-actions">
+                        <button type="button" class="custom-submit" id="customWhatsApp">
+                            ✦ Discuter de mon projet sur WhatsApp
+                        </button>
+                        <button type="button" class="custom-reset" id="customReset">Réinitialiser</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- =====================================================
+             CONTACT
+        ===================================================== -->
+
+        <section
+            class="contact"
+            id="contact"
+        >
+
+            <div class="contact-content">
+
+                <div class="section-label">
+                    Contact
+                </div>
+
+                <h2>
+                    Créons quelque chose<br>
+                    d'unique.
+                </h2>
+
+                <p>
+                    Pour une commande, une création sur mesure ou simplement
+                    pour discuter d'un projet, contactez directement la créatrice.
+                </p>
+
+                <div class="contact-buttons">
+
+                    <a
+                        class="contact-button"
+                        href="https://wa.me/22944007806"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        WhatsApp
+                    </a>
+
+                    <a
+                        class="contact-button"
+                        href="tel:+2290190431451"
+                    >
+                        Téléphone
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================================
+         WHATSAPP
+    ========================================================= -->
+
+    <a
+        class="whatsapp"
+        href="https://wa.me/22944007806"
+        target="_blank"
+        aria-label="Contacter sur WhatsApp"
+    >
+        ☎
+    </a>
+
+
+    <!-- =========================================================
+         RÉSEAUX SOCIAUX
+    ========================================================= -->
+
+    <section class="social-section" id="reseaux">
+
+        <div class="section-label">
+            Suivez la maison
+        </div>
+
+        <h2>
+            MAISON THEODORA<br>
+            <span>sur les réseaux.</span>
+        </h2>
+
+        <div class="social-links">
+
+            <a
+                class="social-link social-tiktok"
+                href="https://www.tiktok.com/@theodoraa_xx6?_r=1&_t=ZS-99qg2s86HmK"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="TikTok de MAISON THEODORA"
+                title="TikTok"
+            >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-3.77V2h-3.06v13.5a2.61 2.61 0 1 1-2.61-2.61c.21 0 .42.03.61.08v-3.1a5.7 5.7 0 1 0 5.06 5.63V8.35a7.87 7.87 0 0 0 4.61 1.48V6.77c-.28 0-.56-.03-.84-.08Z"/>
+                </svg>
+                <span>TikTok</span>
+            </a>
+
+            <a
+                class="social-link social-instagram"
+                href="https://www.instagram.com/theodoraa_xx?stkn=bzEzMm04dmlyd2Rp"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram de MAISON THEODORA"
+                title="Instagram"
+            >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="3" y="3" width="18" height="18" rx="5" ry="5"></rect>
+                    <circle cx="12" cy="12" r="4.2"></circle>
+                    <circle cx="17.4" cy="6.6" r="1.15" class="instagram-dot"></circle>
+                </svg>
+                <span>Instagram</span>
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <footer>
+        © 2026 — MAISON THEODORA · CRÉATION & MODE
+    </footer>
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+         IMPORTANT : LE SCRIPT EST À LA FIN DU BODY
+    ========================================================= -->
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            /* =====================================================
+               ÉLÉMENTS
+            ===================================================== */
+
+            const introScreen =
+                document.getElementById("introScreen");
+
+            const enterButton =
+                document.getElementById("enterButton");
+
+            const music =
+                document.getElementById("siteMusic");
+
+            const musicButton =
+                document.getElementById("musicButton");
+
+            const heroImage =
+                document.getElementById("heroImage");
+
+
+            /* =====================================================
+               INTRO
+            ===================================================== */
+
+            document.body.classList.add("locked");
+
+
+            if (enterButton && introScreen) {
+
+                enterButton.addEventListener("click", function () {
+
+                    introScreen.classList.add("hidden");
+
+                    document.body.classList.remove("locked");
+
+                    document.body.style.overflow = "auto";
+
+
+                    /* =================================================
+                       MUSIQUE
+                    ================================================= */
+
+                    if (music) {
+
+                        music.volume = 0.35;
+
+                        const playPromise = music.play();
+
+                        if (playPromise !== undefined) {
+
+                            playPromise
+                                .then(function () {
+
+                                    if (musicButton) {
+                                        musicButton.textContent = "♫";
+                                    }
+
+                                })
+                                .catch(function () {
+
+                                    console.log(
+                                        "La musique n'a pas pu démarrer automatiquement."
+                                    );
+
+                                });
+
+                        }
+
+                    }
+
+                });
+
+            }
+
+
+            /* =====================================================
+               BOUTON MUSIQUE
+            ===================================================== */
+
+            if (musicButton && music) {
+
+                musicButton.addEventListener("click", function () {
+
+                    if (music.paused) {
+
+                        music.play()
+                            .then(function () {
+
+                                musicButton.textContent = "♫";
+
+                            })
+                            .catch(function () {
+
+                                console.log(
+                                    "Lecture audio impossible."
+                                );
+
+                            });
+
+                    } else {
+
+                        music.pause();
+
+                        musicButton.textContent = "♪";
+
+                    }
+
+                });
+
+            }
+
+
+            /* =====================================================
+               RECONSTRUCTION / DÉCONSTRUCTION AU SCROLL
+            ===================================================== */
+
+            const models =
+                document.querySelectorAll(".model");
+
+            let modelScrollTicking = false;
+
+            function clamp(value, min, max) {
+                return Math.min(Math.max(value, min), max);
+            }
+
+            function updateModelsOnScroll() {
+
+                const viewportHeight = window.innerHeight;
+
+                models.forEach(function (model) {
+
+                    const rect =
+                        model.getBoundingClientRect();
+
+                    const start =
+                        viewportHeight * 0.98;
+
+                    const end =
+                        viewportHeight * 0.20;
+
+                    const progress =
+                        clamp(
+                            (start - rect.top) /
+                            (start - end),
+                            0,
+                            1
+                        );
+
+                    model.style.setProperty(
+                        "--progress",
+                        progress.toFixed(3)
+                    );
+
+                });
+
+                modelScrollTicking = false;
+            }
+
+            function requestModelUpdate() {
+
+                if (!modelScrollTicking) {
+
+                    window.requestAnimationFrame(
+                        updateModelsOnScroll
+                    );
+
+                    modelScrollTicking = true;
+                }
+            }
+
+            window.addEventListener(
+                "scroll",
+                requestModelUpdate,
+                { passive: true }
+            );
+
+            window.addEventListener(
+                "resize",
+                requestModelUpdate
+            );
+
+            updateModelsOnScroll();
+
+
+            /* =====================================================
+               ADAPTATION AUTOMATIQUE AU FORMAT DE CHAQUE PHOTO
+               La zone garde exactement le ratio de la photo.
+               Cela évite qu'une photo portrait ou paysage soit
+               forcée dans un cadre qui la coupe.
+            ===================================================== */
+
+            const modelImages =
+                document.querySelectorAll(".model-image");
+
+            modelImages.forEach(function (container) {
+
+                const firstImage =
+                    container.querySelector("img");
+
+                if (!firstImage) return;
+
+                function adaptImageRatio() {
+
+                    if (
+                        firstImage.naturalWidth > 0 &&
+                        firstImage.naturalHeight > 0
+                    ) {
+
+                        const ratio =
+                            firstImage.naturalWidth /
+                            firstImage.naturalHeight;
+
+                        container.style.aspectRatio =
+                            ratio + " / 1";
+                    }
+                }
+
+                if (firstImage.complete) {
+                    adaptImageRatio();
+                } else {
+                    firstImage.addEventListener(
+                        "load",
+                        adaptImageRatio
+                    );
+                }
+
+            });
+
+
+            /* =====================================================
+               PARALLAX HERO
+            ===================================================== */
+
+            if (heroImage) {
+
+                window.addEventListener(
+                    "scroll",
+                    function () {
+
+                        const scrollY =
+                            window.scrollY;
+
+                        if (scrollY < window.innerHeight) {
+
+                            heroImage.style.transform =
+                                "scale(1.05) translateY(" +
+                                scrollY * 0.12 +
+                                "px)";
+
+                        }
+
+                    },
+                    {
+                        passive: true
+                    }
+                );
+
+            }
+
+
+            /* =====================================================
+               NAVIGATION
+            ===================================================== */
+
+            const navLinks =
+                document.querySelectorAll(
+                    'a[href^="#"]'
+                );
+
+
+            navLinks.forEach(function (link) {
+
+                link.addEventListener(
+                    "click",
+                    function (event) {
+
+                        const targetId =
+                            link.getAttribute("href");
+
+                        if (
+                            targetId &&
+                            targetId !== "#"
+                        ) {
+
+                            const target =
+                                document.querySelector(
+                                    targetId
+                                );
+
+                            if (target) {
+
+                                event.preventDefault();
+
+                                target.scrollIntoView({
+                                    behavior: "smooth",
+                                    block: "start"
+                                });
+
+                            }
+
+                        }
+
+                    }
+                );
+
+            });
+
+
+            /* =====================================================
+               LOG DE VÉRIFICATION
+            ===================================================== */
+
+            console.log(
+                "Site MAISON THEODORA chargé correctement."
+            );
+
+            console.log(
+                "Bouton Entrer :",
+                enterButton ? "OK" : "INTROUVABLE"
+            );
+
+            console.log(
+                "Musique :",
+                music ? "OK" : "INTROUVABLE"
+            );
+
+        });
+
+    </script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        /* =========================================================
+           FR / EN
+        ========================================================= */
+
+        const languageButton = document.getElementById("languageButton");
+        if (languageButton) { languageButton.type = "button"; }
+        let currentLanguage = "en";
+
+        const pageTranslations = {
+            fr: {
+                introSmall: "Création · Élégance · Identité",
+                introSubtitle: "Entrez dans un univers de création",
+                introBio: "Derrière chaque création, il y a aussi moi, devant l’objectif. Au-delà du stylisme, je suis également modèle et j’aime incarner les tenues que j’imagine, leur donner vie et exprimer ma créativité à travers chaque pose.",
+                enter: "Entrer dans l'univers →",
+                about: "À propos", works: "Réalisations", contact: "Contact",
+                heroLabel: "Création sur mesure",
+                heroTitle: "L'art de<br>s'habiller.",
+                heroText: "Des créations pensées pour révéler une identité, une personnalité et une manière unique de se présenter au monde.",
+                creator: "La créatrice",
+                bioTitle: "Une histoire<br>de passion.",
+                bio1: "Depuis mes débuts, la création représente bien plus qu'un simple métier. Chaque vêtement est pensé comme une expression de personnalité et de caractère.",
+                bio2: "À travers les matières, les coupes, les détails et les finitions, chaque réalisation raconte une histoire.",
+                bio3: "Mon approche repose sur une idée simple : créer des pièces qui correspondent réellement à la personne qui les porte.",
+                universe: "L'univers",
+                universeTitle: "Derrière<br>les créations.",
+                photosBio: [
+                    "Bonjour, je suis Tossou Flora Théodora Ahouéfa, mais tout le monde m’appelle Théodora. J’ai 20 ans et je vis à Calavi, au Bénin.",
+                    "Je suis styliste et je fais de la couture pour hommes et femmes. Ce que j’aime, c’est créer des tenues qui vous vont parfaitement et qui vous donnent confiance dès que vous les portez. Chaque pièce est travaillée avec soin, de la coupe aux finitions, et j’écoute vraiment vos envies pour que le résultat vous ressemble.",
+                    "Je me forme à l’école de mode ESDAM, où je suis en 2ᵉ année, et je prépare en même temps une Licence 3 d’anglais. Ce double parcours m’a appris à être sérieuse, organisée et ouverte, des qualités qui comptent quand on confie son vêtement à quelqu’un.",
+                    "À mes heures perdues, je suis aussi modèle photo. Cela me permet de savoir comment un vêtement tombe, bouge et se met en valeur une fois porté.",
+                    "On me connaît pour ma façon de mêler parfaitement mode, beauté et lifestyle, avec un style à moi et une vraie passion pour ce que je fais.",
+                    "Célibataire, sans enfants, je suis entièrement concentrée sur mon métier et sur mes projets."
+                ],
+                worksLabel: "Réalisations",
+                collection: "La collection.",
+                contactLabel: "Contact",
+                contactTitle: "Créons quelque chose<br>d'unique.",
+                contactText: "Pour une commande, une création sur mesure ou simplement pour discuter d'un projet, contactez directement la créatrice.",
+                whatsapp: "WhatsApp",
+                call: "Phone",
+                socialLabel: "Suivez la maison",
+                socialTitle: "MAISON THEODORA<br><span>sur les réseaux.</span>",
+                footer: "© 2026 — MAISON THEODORA · CRÉATION & MODE",
+                discuss: "Discuter de cette création",
+                customIntroLabel: "Projet sur mesure", customTitle: "Créez votre <span>pièce.</span>", customIntroText: "Chaque création est pensée selon vos envies. Choisissez votre modèle, vos matières, vos couleurs et vos finitions afin de nous présenter votre projet.", customNoteTitle: "À savoir", customNoteText: "Le prix et le délai de conception dépendent de vos choix : modèle, matières, tissus, couleurs, finitions et niveau de personnalisation. Chaque projet fait l’objet d’une étude personnalisée.", customFormTitle: "Personnalisez votre création", selectedPrefix: "Création sélectionnée :", choose: "À choisir", chooseModel: "Sélectionner un modèle", materialLabel: "2. Choisissez la matière / le tissu", colorLabel: "3. Choisissez la couleur", finishLabel: "4. Choisissez les finitions / détails", levelLabel: "5. Niveau de personnalisation", projectLabel: "6. Parlez-nous de votre projet", selectGeneric: "Sélectionner", customPlaceholder: "Taille, occasion, idées, modifications souhaitées...", customWhatsApp: "✦ Discuter de mon projet sur WhatsApp", reset: "Réinitialiser", modelLabel: "1. Choisissez votre modèle",
+                materialOptions: ["Lin naturel","Satin","Soie","Velours","Dentelle","Wax / tissu imprimé","Autre matière"], colorOptions: ["Noir","Blanc","Rouge","Rose","Bleu","Vert","Jaune","Bordeaux","Selon votre inspiration"], finishOptions: ["Broderies","Perles","Détails métalliques","Dentelle / volants","Strass","Finitions minimalistes","Autre finition"], levelOptions: ["Adaptation légère du modèle","Personnalisation importante","Création entièrement sur mesure"]
+            },
+            en: {
+                introSmall: "Creation · Elegance · Identity",
+                introSubtitle: "Enter a world of creation",
+                introBio: "Behind every creation, there is also me, in front of the camera. Beyond styling, I am also a model and I love embodying the outfits I imagine, bringing them to life and expressing my creativity through every pose.",
+                enter: "Enter the universe →",
+                about: "About", works: "Creations", contact: "Contact",
+                heroLabel: "Custom creation",
+                heroTitle: "The art of<br>dressing.",
+                heroText: "Creations designed to reveal an identity, a personality and a unique way of presenting yourself to the world.",
+                creator: "The creator",
+                bioTitle: "A story<br>of passion.",
+                bio1: "Since my beginnings, creation has represented much more than a simple profession. Every garment is conceived as an expression of personality and character.",
+                bio2: "Through fabrics, cuts, details and finishes, every creation tells a story.",
+                bio3: "My approach is based on a simple idea: creating pieces that truly match the person wearing them.",
+                universe: "The universe",
+                universeTitle: "Behind<br>the creations.",
+                photosBio: [
+                    "Hello, I’m Tossou Flora Théodora Ahouéfa, but everyone calls me Théodora. I’m 20 years old and I live in Calavi, Benin.",
+                    "I am a fashion designer and I create clothing for both women and men. What I love is creating outfits that fit you perfectly and make you feel confident as soon as you wear them. Every piece is carefully crafted, from the cut to the finishing touches, and I truly listen to your wishes so that the final result reflects you.",
+                    "I am studying at ESDAM fashion school, where I am currently in my second year, while also preparing for a third-year Bachelor’s degree in English. This double academic path has taught me to be serious, organized and open-minded — qualities that matter when you entrust your clothing to someone.",
+                    "In my spare time, I am also a photo model. This allows me to understand how a garment falls, moves and looks at its best once it is worn.",
+                    "I am known for the way I blend fashion, beauty and lifestyle, with a style of my own and a genuine passion for what I do.",
+                    "Single and without children, I am fully focused on my profession and my projects."
+                ],
+                worksLabel: "Creations",
+                collection: "The collection.",
+                contactLabel: "Contact",
+                contactTitle: "Let's create something<br>unique.",
+                contactText: "For an order, a custom creation or simply to discuss a project, contact the creator directly.",
+                whatsapp: "WhatsApp",
+                call: "Phone",
+                socialLabel: "Follow the house",
+                socialTitle: "MAISON THEODORA<br><span>on social media.</span>",
+                footer: "© 2026 — MAISON THEODORA · CREATION & FASHION",
+                discuss: "Discuss this creation",
+                customIntroLabel: "Bespoke project", customTitle: "Create your <span>piece.</span>", customIntroText: "Each creation is designed around your wishes. Choose your model, materials, colors and finishes to present your project to us.", customNoteTitle: "Please note", customNoteText: "The price and production time depend on your choices: model, materials, fabrics, colors, finishes and level of personalization. Each project is individually reviewed.", customFormTitle: "Personalize your creation", selectedPrefix: "Selected creation:", choose: "Choose", chooseModel: "Select a model", materialLabel: "2. Choose the material / fabric", colorLabel: "3. Choose the color", finishLabel: "4. Choose the finishes / details", levelLabel: "5. Personalization level", projectLabel: "6. Tell us about your project", selectGeneric: "Select", customPlaceholder: "Size, occasion, ideas, requested changes...", customWhatsApp: "✦ Discuss my project on WhatsApp", reset: "Reset", modelLabel: "1. Choose your model",
+                materialOptions: ["Natural linen","Satin","Silk","Velvet","Lace","Wax / printed fabric","Other material"], colorOptions: ["Black","White","Red","Pink","Blue","Green","Yellow","Burgundy","According to your inspiration"], finishOptions: ["Embroidery","Beads","Metallic details","Lace / ruffles","Rhinestones","Minimal finishes","Other finish"], levelOptions: ["Light adaptation of the model","Significant personalization","Fully bespoke creation"]
+            }
+        };
+
+        const modelData = [
+            {fr:"Signature", en:"Signature", frDesc:"Poésie Bohème & Jeux de Matières Créée autour du concept « Mix et match narratif dans un style bohème chic », cette tenue met à l'honneur un gilet sur mesure associant le lin naturel aux textiles imposés. L'œuvre joue sur l'assemblage et la juxtaposition des textures pour raconter une histoire visuelle unique. Le résultat offre une silhouette à la fois fluide, authentique et raffinée.", enDesc:"Bohemian Poetry & Material Play Created around the concept “Narrative mix and match in a bohemian chic style,” this outfit highlights a custom-made vest combining natural linen with selected textiles. The piece plays with the assembly and juxtaposition of textures to tell a unique visual story. The result is a fluid, authentic and refined silhouette."},
+            {fr:"Éclat", en:"Radiance", frDesc:"L'Art Lyrique Avant-Garde Conçue dans le cadre du thème « Un métier, une tenue dans un style avant-gardiste », cette création rend hommage à la figure théâtrale de la chanteuse d'opéra. La pièce s'articule autour d'une relecture audacieuse de la chemise classique, intégrée dans une coupe structurée et dramatique. Ce modèle propose une vision futuriste du vestiaire lyrique, mêlant élégance scénique et modernité disruptive.", enDesc:"Avant-Garde Lyric Art Created around the theme “One profession, one outfit in an avant-garde style,” this creation pays tribute to the theatrical figure of the opera singer. The piece reinterprets the classic shirt through a structured and dramatic cut. This model offers a futuristic vision of the lyrical wardrobe, blending stage elegance with disruptive modernity."},
+            {fr:"Héritage", en:"Heritage", frDesc:"La Sérénité Nuptiale Imaginée pour le thème « Où veux-tu m'épouser ? », cette tenue de mariage civil revisite l'élégance nuptiale à travers la confection d'un corset structuré. Travaillée dans une palette de bleus incarnant la douceur et la sérénité, la pièce équilibre la modernité de sa coupe et la délicatesse de sa teinte. Elle incarne une allure contemporaine et empreinte d'émotion.", enDesc:"Bridal Serenity Created for the theme “Where do you want me to marry you?”, this civil wedding outfit revisits bridal elegance through a structured corset. Crafted in a palette of blues expressing softness and serenity, the piece balances a modern cut with the delicacy of its color. It embodies a contemporary and emotional look."},
+            {fr:"Évidence", en:"Evidence", frDesc:"Jupe Asymétrique Bohème Chic<br><br>Ce look incarne l'esprit « bohème chic » dans toute sa fraîcheur grâce à un jeu de superpositions et de volumes parfaitement maîtrisé. La pièce maîtresse est cette jupe longue fluide aux tons orangés et imprimés artisanaux, confectionnée avec un drapé asymétrique à panneaux superposés qui apporte un mouvement naturel et aérien à chaque pas. Associée à un top blanc minimaliste pour équilibrer la silhouette, l'ensemble met en valeur les textures naturelles. C'est une tenue solaire et sophistiquée, idéale pour un style estival à la fois décontracté et élégant.", enDesc:"Bohemian Chic Asymmetric Skirt<br><br>This look embodies the fresh spirit of “bohemian chic” through perfectly controlled layers and volumes. The centerpiece is a flowing long skirt in orange tones with artisanal prints, designed with an asymmetric drape and overlapping panels that create a natural, airy movement with every step. Paired with a minimalist white top, the outfit highlights natural textures. A radiant and sophisticated look, ideal for an elegant yet relaxed summer style."},
+            {fr:"Romantique", en:"Romantic", frDesc:"Corset Rose Romantique<br><br>Cette création joue sur un contraste de textures fascinant entre la finesse structurée du corset satiné rose bonbon et le relief texturé de la mini-jupe. Le bustier baleiné souligne la taille tout en apportant une tenue impeccable, rehaussé de finitions dentelées fuchsia qui soulignent la poitrine et la bordure basse. La jupe courte, entièrement brodée de détails en relief ton sur ton, apporte une dimension poétique et couture à l'ensemble. C'est une pièce audacieuse et féminine qui revisite la corseterie classique dans une esthétique moderne et pétillante.", enDesc:"Romantic Pink Corset<br><br>This creation plays with a fascinating contrast of textures between the structured delicacy of the candy-pink satin corset and the textured relief of the mini skirt. The boned bustier defines the waist while providing impeccable structure, enhanced by fuchsia scalloped finishes. The short skirt, entirely embroidered with tone-on-tone raised details, brings a poetic couture dimension to the look. A bold and feminine piece that reinterprets classic corsetry with a modern and vibrant aesthetic."},
+            {fr:"Sensuelle", en:"Sensual", frDesc:"Émeraude Nocturne<br><br>Une création pensée autour de l’élégance et de l’assurance. Le bleu profond apporte une touche sophistiquée, tandis que les découpes et les détails métalliques donnent du caractère à la silhouette. Une pièce moderne, féminine et résolument audacieuse.", enDesc:"Midnight Emerald<br><br>A creation built around elegance and confidence. Deep blue brings a sophisticated touch, while cut-outs and metallic details give character to the silhouette. A modern, feminine and decidedly bold piece."},
+            {fr:"Solaire", en:"Solar", frDesc:"Lumière Tropicale<br><br>Une tenue qui célèbre la fraîcheur et l'élégance. Le jaune citron apporte une touche de lumière, tandis que les détails dorés et les perles colorées ajoutent du caractère et du raffinement.<br>Un look moderne, joyeux et résolument féminin.", enDesc:"Tropical Light<br><br>An outfit celebrating freshness and elegance. Lemon yellow brings a touch of light, while golden details and colorful beads add character and refinement.<br>A modern, joyful and decidedly feminine look."},
+            {fr:"Nature", en:"Nature", frDesc:"Cette création associe un haut péplum cintré sans bretelles à un pantalon large et fluide, formant une silhouette structurée et moderne. Réalisé dans un textile imprimé aux motifs géométriques et organiques verts et blancs, l'ensemble met en valeur une allure élégante et équilibrée. Des accessoires métalliques imposants aux poignets et une coiffure travaillée apportent une touche de sophistication à ce style urbain et contemporain.", enDesc:"This creation combines a fitted strapless peplum top with wide, flowing trousers, creating a structured and modern silhouette. Made from a printed textile featuring green and white geometric and organic patterns, the outfit highlights an elegant and balanced look. Bold metallic accessories at the wrists and a carefully styled hairstyle add sophistication to this urban and contemporary style."},
+            {fr:"Aura", en:"Aura", frDesc:"Élégance lumineuse<br><br>Une pièce qui joue sur la lumière, les textures et la fluidité. Les détails sont travaillés pour accompagner le mouvement et révéler une allure à la fois délicate et affirmée.", enDesc:"Luminous elegance<br><br>A piece that plays with light, textures and fluidity. Every detail is designed to follow movement and reveal a look that is both delicate and confident."},
+            {fr:"Foi et Spiritualité", en:"Faith and Spirituality", frDesc:"Cette tenue arabe se compose d’une abaya noire à manches longues, ornée de broderies dorées aux poignets, accompagnée d’un voile bordeaux richement décoré de motifs dorés. L’association des couleurs, les finitions brodées et la coupe ample caractérisent cet ensemble traditionnel, complété par un pendentif discret.", enDesc:"This Arab outfit consists of a long-sleeved black abaya adorned with golden embroidery at the cuffs, accompanied by a burgundy veil richly decorated with golden motifs. The color combination, embroidered finishes and loose cut define this traditional ensemble, completed by a discreet pendant."},
+            {fr:"Impériale", en:"Imperial", frDesc:"La robe longue bordeaux présente une coupe bustier ajustée, accompagnée d’un drapé couvrant les épaules et le dos. La silhouette est structurée par une taille marquée et une jupe près du corps. Les accessoires dorés, notamment les bracelets, apportent un contraste avec la couleur de la tenue.", enDesc:"The long burgundy dress features a fitted strapless cut, accompanied by draping that covers the shoulders and back. The silhouette is structured by a defined waist and a close-fitting skirt. Golden accessories, particularly the bracelets, provide contrast with the color of the outfit."},
+            {fr:"Nébuleuse", en:"Nebula", frDesc:"L'élégance en mouvement<br><br>Cette tenue incarne la féminité moderne: une silhouette aérienne, des volumes maitrisés et une couleur qui attire la lumière.<br>C'est la preuve qu'on peut être simple et remarquable à la fois.", enDesc:"Elegance in motion<br><br>This outfit embodies modern femininity: an airy silhouette, controlled volumes and a color that catches the light.<br>Proof that you can be simple and remarkable at the same time."},
+            {fr:"Douceur", en:"Softness", frDesc:"La tenue se compose d’une robe bustier rose pâle, associée à une jupe fuchsia et à une longue cape fluide. Les grandes fleurs décoratives fuchsia apportent du relief à l’ensemble. Les bijoux dorés, les tresses relevées et les boucles d’oreilles complètent la tenue, en créant un contraste avec les différentes nuances de rose.", enDesc:"The outfit consists of a pale pink strapless dress paired with a fuchsia skirt and a long flowing cape. Large decorative fuchsia flowers add dimension to the ensemble. Golden jewelry, an updo of braids and earrings complete the look, creating contrast between the different shades of pink."}
+        ];
+
+        function setText(selector, value, html=false) {
+            document.querySelectorAll(selector).forEach(function(el){
+                if (html) el.innerHTML = value; else el.textContent = value;
+            });
+        }
+
+        function applyLanguage(lang) {
+            const t = pageTranslations[lang];
+            currentLanguage = lang;
+
+            setText(".intro-small", t.introSmall);
+            setText(".intro-subtitle", t.introSubtitle);
+            setText(".intro-bio", t.introBio);
+            setText("#enterButton", t.enter);
+            setText('nav a[href="#biographie"]', t.about);
+            setText('nav a[href="#collection"]', t.works);
+            setText('nav a[href="#contact"]', t.contact);
+            setText(".hero-label", t.heroLabel);
+            setText(".hero h1", t.heroTitle, true);
+            setText(".hero p", t.heroText);
+            setText(".bio > .section-label", t.creator);
+            setText(".bio .section-title", t.bioTitle, true);
+
+            const bioP = document.querySelectorAll(".bio-text p");
+            [t.bio1,t.bio2,t.bio3].forEach(function(v,i){ if(bioP[i]) bioP[i].textContent=v; });
+
+            setText(".photos-section > .section-label", t.universe);
+            setText(".photos-section > .section-title", t.universeTitle, true);
+            if(Array.isArray(t.photosBio)){
+                t.photosBio.forEach(function(textValue,i){
+                    const el=document.getElementById("photosBioP"+(i+1));
+                    if(el) el.textContent=textValue;
+                });
+            }
+            setText(".collection > .section-label", t.worksLabel);
+            setText(".collection > .section-title", t.collection);
+            setText(".contact .section-label", t.contactLabel);
+            setText(".contact h2", t.contactTitle, true);
+            setText(".contact p", t.contactText);
+            setText(".contact-button[href^=\"https://wa.me\"]", t.whatsapp);
+            setText(".contact-button[href^=\"tel:\"]", t.call);
+            setText(".social-section .section-label", t.socialLabel);
+            setText(".social-section h2", t.socialTitle, true);
+            const footer = document.querySelector("footer");
+            if(footer) footer.textContent=t.footer;
+
+            document.querySelectorAll(".model-title").forEach(function(el,i){
+                if(modelData[i]) el.textContent = lang === "fr" ? modelData[i].fr : modelData[i].en;
+            });
+
+            document.querySelectorAll(".model-description").forEach(function(el,i){
+                if(modelData[i]) el.innerHTML = lang === "fr" ? modelData[i].frDesc : modelData[i].enDesc;
+            });
+
+            document.querySelectorAll(".order-button").forEach(function(el){ el.textContent=t.discuss; });
+
+            // Traduction complète du configurateur
+            setText(".custom-section .section-label", t.customIntroLabel);
+            setText(".custom-intro h2", t.customTitle, true);
+            const customIntroP = document.querySelector(".custom-intro > p");
+            if(customIntroP) customIntroP.textContent=t.customIntroText;
+            const note = document.querySelector(".custom-note");
+            if(note) note.innerHTML="<strong>"+t.customNoteTitle+"</strong><br>"+t.customNoteText;
+            setText(".custom-form-title", t.customFormTitle);
+            setText(".custom-field label[for=customModel]", t.modelLabel);
+            setText(".custom-field label[for=customMaterial]", t.materialLabel);
+            setText(".custom-field label[for=customColor]", t.colorLabel);
+            setText(".custom-field label[for=customFinish]", t.finishLabel);
+            setText(".custom-field label[for=customLevel]", t.levelLabel);
+            setText(".custom-field label[for=customMessage]", t.projectLabel);
+            const customMessageEl=document.getElementById("customMessage");
+            if(customMessageEl) customMessageEl.placeholder=t.customPlaceholder;
+            const customWhatsAppEl=document.getElementById("customWhatsApp");
+            if(customWhatsAppEl) customWhatsAppEl.textContent=t.customWhatsApp;
+            const customResetEl=document.getElementById("customReset");
+            if(customResetEl) customResetEl.textContent=t.reset;
+
+            function setSelectOptions(id, options, firstText) {
+                const el=document.getElementById(id);
+                if(!el) return;
+                const oldValue=el.value;
+                el.innerHTML="";
+                const first=document.createElement("option"); first.value=""; first.textContent=firstText; el.appendChild(first);
+                options.forEach(function(value){ const o=document.createElement("option"); o.value=value; o.textContent=value; el.appendChild(o); });
+                if(Array.from(el.options).some(function(o){return o.value===oldValue;})) el.value=oldValue;
+            }
+            setSelectOptions("customMaterial", t.materialOptions, t.selectGeneric);
+            setSelectOptions("customColor", t.colorOptions, t.selectGeneric);
+            setSelectOptions("customFinish", t.finishOptions, t.selectGeneric);
+            setSelectOptions("customLevel", t.levelOptions, t.selectGeneric);
+            if(customModel && Array.isArray(modelData)){
+                const oldModel=customModel.value;
+                customModel.innerHTML="";
+                const firstModel=document.createElement("option"); firstModel.value=""; firstModel.textContent=t.chooseModel; customModel.appendChild(firstModel);
+                modelData.forEach(function(item,index){ const o=document.createElement("option"); o.value=String(index); o.textContent=lang === "fr" ? item.fr : item.en; customModel.appendChild(o); });
+                customModel.value=oldModel;
+            }
+            updateSelectedCreation();
+            document.documentElement.lang=lang;
+            languageButton.textContent = lang === "fr" ? "EN" : "FR";
+            languageButton.setAttribute("aria-label", lang === "fr" ? "Passer le site en anglais" : "Switch the website to French");
+        }
+
+        if(languageButton) {
+            languageButton.addEventListener("click", function(){
+                applyLanguage(currentLanguage === "fr" ? "en" : "fr");
+            });
+        }
+
+        /* =========================================================
+           CONFIGURATEUR — SÉLECTION D'UNE CRÉATION + WHATSAPP + IMAGE
+        ========================================================= */
+
+        const whatsappNumber = "22944007806";
+        const customModel = document.getElementById("customModel");
+        const selectedCreation = document.getElementById("selectedCreation");
+        const customWhatsApp = document.getElementById("customWhatsApp");
+        const customReset = document.getElementById("customReset");
+
+        function updateSelectedCreation(){
+            if(!selectedCreation || !customModel) return;
+            const option=customModel.options[customModel.selectedIndex];
+            const prefix=(pageTranslations[currentLanguage] && pageTranslations[currentLanguage].selectedPrefix) || "Création sélectionnée :";
+            const empty=(pageTranslations[currentLanguage] && pageTranslations[currentLanguage].choose) || "À choisir";
+            selectedCreation.innerHTML=prefix+" <strong>"+(option && option.value !== "" ? option.textContent : empty)+"</strong>";
+        }
+
+        function populateCustomModels(){
+            if(!customModel || !Array.isArray(modelData)) return;
+            const oldValue=customModel.value;
+            const t=pageTranslations[currentLanguage];
+            customModel.innerHTML="";
+            const first=document.createElement("option");
+            first.value=""; first.textContent=t.chooseModel; customModel.appendChild(first);
+            modelData.forEach(function(item,index){
+                const option=document.createElement("option");
+                option.value=String(index);
+                option.textContent=currentLanguage === "fr" ? item.fr : item.en;
+                customModel.appendChild(option);
+            });
+            customModel.value=oldValue;
+            updateSelectedCreation();
+        }
+
+        populateCustomModels();
+        if(customModel) customModel.addEventListener("change", updateSelectedCreation);
+
+        function buildWhatsAppMessage(index){
+            const t=pageTranslations[currentLanguage];
+            const selected=customModel && customModel.value !== "" ? customModel.options[customModel.selectedIndex].textContent : t.choose;
+            const material=document.getElementById("customMaterial")?.value || t.selectGeneric;
+            const color=document.getElementById("customColor")?.value || t.selectGeneric;
+            const finish=document.getElementById("customFinish")?.value || t.selectGeneric;
+            const level=document.getElementById("customLevel")?.value || t.selectGeneric;
+            const extra=document.getElementById("customMessage")?.value.trim() || (currentLanguage === "fr" ? "Aucune précision supplémentaire" : "No additional details");
+
+            if(currentLanguage === "fr") {
+                return "Bonjour, je souhaite discuter de mon projet avec MAISON THEODORA.\n\n" +
+                    "Création : " + selected + "\n" +
+                    "Matière / tissu : " + material + "\n" +
+                    "Couleur : " + color + "\n" +
+                    "Finitions / détails : " + finish + "\n" +
+                    "Personnalisation : " + level + "\n" +
+                    "Précisions : " + extra + "\n\n" +
+                    "Je souhaiterais connaître le prix et le délai de conception selon ces choix.";
+            }
+            return "Hello, I would like to discuss my project with MAISON THEODORA.\n\n" +
+                "Creation: " + selected + "\n" +
+                "Material / fabric: " + material + "\n" +
+                "Color: " + color + "\n" +
+                "Finishes / details: " + finish + "\n" +
+                "Personalization: " + level + "\n" +
+                "Details: " + extra + "\n\n" +
+                "I would like to know the price and production time based on these choices.";
+        }
+
+        function shareModelToWhatsApp(index, message){
+            /*
+             * WhatsApp ne permet pas à un lien wa.me d'ajouter directement
+             * un fichier. Pour ouvrir WhatsApp AUTOMATIQUEMENT, on met donc
+             * dans le message l'URL exacte de la photo du modèle affichée
+             * sur le site. Si le site est publié en HTTPS, WhatsApp peut
+             * également générer l'aperçu de l'image.
+             */
+            const models=document.querySelectorAll(".model");
+            const modelArticle=models[index];
+            const sourceImage=modelArticle ? modelArticle.querySelector(".model-fragment img") : null;
+            const imagePath=sourceImage?.getAttribute("src") || ("images/modele"+(index+1)+".jpg");
+
+            let imageUrl=imagePath;
+            try {
+                imageUrl=new URL(imagePath, document.baseURI).href;
+            } catch(e) {}
+
+            const finalMessage = message + "\n\n📸 Photo du modèle :\n" + imageUrl;
+            const whatsappUrl="https://wa.me/"+whatsappNumber+"?text="+encodeURIComponent(finalMessage);
+
+            /* Ouverture directe de WhatsApp avec tous les choix + le lien photo. */
+            window.location.href=whatsappUrl;
+        }
+
+        document.querySelectorAll(".model .order-button").forEach(function(button,index){
+            button.addEventListener("click",function(event){
+                event.preventDefault();
+                if(customModel){ customModel.value=String(index); updateSelectedCreation(); }
+                const section=document.getElementById("projet-sur-mesure");
+                if(section) section.scrollIntoView({behavior:"smooth",block:"start"});
+            });
+        });
+
+        if(customWhatsApp){
+            customWhatsApp.addEventListener("click",async function(){
+                const index=customModel && customModel.value !== "" ? Number(customModel.value) : undefined;
+                const message=buildWhatsAppMessage(index);
+
+                if(index !== undefined) {
+                    await shareModelToWhatsApp(index,message);
+                } else {
+                    window.open(
+                        "https://wa.me/"+whatsappNumber+"?text="+encodeURIComponent(message),
+                        "_blank",
+                        "noopener,noreferrer"
+                    );
+                }
+            });
+        }
+
+        if(customReset){
+            customReset.addEventListener("click",function(){
+                if(customModel) customModel.value="";
+                ["customMaterial","customColor","customFinish","customLevel"].forEach(function(id){
+                    const el=document.getElementById(id); if(el) el.selectedIndex=0;
+                });
+                const msg=document.getElementById("customMessage"); if(msg) msg.value="";
+                updateSelectedCreation();
+            });
+        }
+
+        /* =========================================================
+           CARROUSEL MANUEL — PAS DE BOUCLE AUTOMATIQUE
+        ========================================================= */
+
+        const track=document.getElementById("photosTrack");
+        const cards=track ? Array.from(track.querySelectorAll(".photo-card")) : [];
+        const dots=Array.from(document.querySelectorAll(".carousel-dot"));
+        const prev=document.querySelector(".carousel-prev");
+        const next=document.querySelector(".carousel-next");
+        let currentPhoto=0;
+        let touchStartX=0;
+
+        function step(){
+            if(!cards.length) return 0;
+            const gap=parseFloat(getComputedStyle(track).gap)||0;
+            return cards[0].getBoundingClientRect().width + gap;
+        }
+
+        function updateCarousel(index){
+            if(!track || !cards.length) return;
+            currentPhoto=Math.max(0,Math.min(index,cards.length-1));
+            const wrapper=track.parentElement;
+            const maxOffset=Math.max(0,track.scrollWidth-wrapper.clientWidth);
+            const offset=Math.min(currentPhoto*step(),maxOffset);
+            track.style.transform="translateX(-"+offset+"px)";
+
+            dots.forEach(function(dot,i){ dot.classList.toggle("active",i===currentPhoto); });
+            if(prev) prev.disabled=currentPhoto===0;
+            if(next) next.disabled=currentPhoto===cards.length-1;
+        }
+
+        if(prev) prev.addEventListener("click",function(){updateCarousel(currentPhoto-1);});
+        if(next) next.addEventListener("click",function(){updateCarousel(currentPhoto+1);});
+        dots.forEach(function(dot,i){dot.addEventListener("click",function(){updateCarousel(i);});});
+
+        if(track){
+            track.addEventListener("touchstart",function(e){touchStartX=e.changedTouches[0].clientX;},{passive:true});
+            track.addEventListener("touchend",function(e){
+                const distance=e.changedTouches[0].clientX-touchStartX;
+                if(Math.abs(distance)>45) updateCarousel(distance<0 ? currentPhoto+1 : currentPhoto-1);
+            },{passive:true});
+        }
+
+        window.addEventListener("resize",function(){updateCarousel(currentPhoto);});
+        updateCarousel(0);
+        applyLanguage("en");
+
+    });
+    </script>
+
+</body>
+</html>
